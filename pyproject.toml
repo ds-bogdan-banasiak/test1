@@ -23,6 +23,10 @@ dev-dependencies = [
     "pip-licenses>=5.5.0",
 ]
 
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["test1*"]
+
 [tool.uv.workspace]
 members = ["packages/test1"]
 
