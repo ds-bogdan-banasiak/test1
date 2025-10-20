@@ -133,7 +133,13 @@ jobs:
         run: uv sync --dev
 
       - name: Build all workspace packages
-        run: uv build --workspace
+        run: |
+          for pkg in packages/*; do
+            if [ -d "$pkg" ]; then
+              echo "Building $pkg"
+              (cd "$pkg" && uv build)
+            fi
+          done
 
       - name: Build package
         run: uv build
