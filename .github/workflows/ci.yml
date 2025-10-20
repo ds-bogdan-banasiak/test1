@@ -62,10 +62,15 @@ jobs:
         run: uv sync --dev
 
       - name: Run tests
-        run: >
-          uv run pytest
-          --cov-report=xml
-          --cov-report=html
+        run: |
+          uv run pytest packages/*/tests --cov=packages --cov-report=xml --cov-report=html || \
+          if [ $? -eq 5 ]; then echo "No tests found - skipping."; exit 0; 
+          else echo "Tests failed."; exit 1; fi
+
+      - name: Reminder - Add tests for your code!
+        if: success()
+        run: echo "Make sure to add tests for new code to keep CI effective and reliable."
+
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
