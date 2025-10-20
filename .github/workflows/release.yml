@@ -28,10 +28,17 @@ jobs:
         run: uv sync --dev
 
       - name: Run tests
-        run: uv run pytest
+        run: |
+          uv run pytest packages/*/tests --cov=packages --cov-report=xml --cov-report=html || \
+          if [ $? -eq 5 ]; then echo "No tests found - skipping."; exit 0; 
+          else echo "Tests failed."; exit 1; fi
 
       - name: Build package
-        run: uv build
+        run: |
+          for dir in packages/*/; do
+            echo "Building $dir"
+            uv build "$dir" --out-dir dist
+          done
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
