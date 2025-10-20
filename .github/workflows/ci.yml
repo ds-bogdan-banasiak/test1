@@ -132,17 +132,12 @@ jobs:
       - name: Install dependencies
         run: uv sync --dev
 
-      - name: Build all workspace packages
+      - name: Build packages
         run: |
-          for pkg in packages/*; do
-            if [ -d "$pkg" ]; then
-              echo "Building $pkg"
-              (cd "$pkg" && uv build)
-            fi
+          for dir in packages/*/; do
+            echo "Building $dir"
+            uv build "$dir" --out-dir dist
           done
-
-      - name: Build package
-        run: uv build
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
