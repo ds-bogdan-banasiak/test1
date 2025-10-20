@@ -4,7 +4,9 @@ version = "0.0.1"
 description = "test1 workspace"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = ["test1"]
+dependencies = [
+    "test1",
+]
 
 [tool.uv]
 dev-dependencies = [
@@ -17,6 +19,7 @@ dev-dependencies = [
     "mkdocs>=1.4.0",
     "mkdocs-material>=9.0.0",
     "mkdocs-mermaid2-plugin>=1.1.0",
+    "pip-licenses>=5.5.0",
 ]
 
 [tool.uv.workspace]
