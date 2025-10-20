@@ -39,7 +39,7 @@ jobs:
         run: uv run mypy .
 
       - name: Check licenses
-        run: bash check_licenses.sh
+        run: uv run bash check_licenses.sh
 
   test:
     name: Run unit tests
