@@ -132,6 +132,9 @@ jobs:
       - name: Install dependencies
         run: uv sync --dev
 
+      - name: Build all workspace packages
+        run: uv build --workspace
+
       - name: Build package
         run: uv build
 
